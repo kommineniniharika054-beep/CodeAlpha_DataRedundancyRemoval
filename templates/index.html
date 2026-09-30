@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Redundancy Removal System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- Header -->
+
+    <header>
+
+        <h1>☁️ Data Redundancy Removal System</h1>
+
+        <p>
+            Cloud-based system for detecting and preventing duplicate data
+        </p>
+
+    </header>
+
+
+    <!-- Dashboard -->
+
+    <div class="dashboard">
+
+
+        <!-- Total Records -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">👥</div>
+
+            <h3>{{ total_users }}</h3>
+
+            <p>Total Verified Records</p>
+
+        </div>
+
+
+        <!-- Unique Records -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">🛡️</div>
+
+            <h3>{{ total_users }}</h3>
+
+            <p>Unique Records</p>
+
+        </div>
+
+
+        <!-- Duplicate Prevention -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon">🚫</div>
+
+            <h3>{{ duplicate_count }}</h3>
+
+            <p>Duplicates Prevented</p>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Messages -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            {% for category, message in messages %}
+
+                <div class="message {{ category }}">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- Add User -->
+
+    <section class="card">
+
+        <h2>➕ Add New User</h2>
+
+
+        <form action="/add" method="POST">
+
+
+            <div class="form-group">
+
+                <label for="name">
+                    Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter user name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter email address"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="phone">
+                    Phone
+                </label>
+
+                <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    placeholder="Enter 10-digit phone number"
+                    pattern="[0-9]{10}"
+                    maxlength="10"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit">
+
+                🔍 Verify & Add User
+
+            </button>
+
+
+        </form>
+
+    </section>
+
+
+    <!-- Verified Data -->
+
+    <section class="card">
+
+        <h2>✅ Verified Unique Data</h2>
+
+
+        {% if users %}
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Email</th>
+
+                        <th>Phone</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for user in users %}
+
+                    <tr>
+
+                        <td>{{ user[0] }}</td>
+
+                        <td>{{ user[1] }}</td>
+
+                        <td>{{ user[2] }}</td>
+
+                        <td>{{ user[3] }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <p class="empty">
+
+            No verified users yet.
+
+        </p>
+
+        {% endif %}
+
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            CodeAlpha Cloud Computing Internship |
+            Data Redundancy Removal System
+        </p>
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>
